@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sting Rocko — 100% Handmade</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Barlow+Condensed:wght@300;400;500;600&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d;
+      --bg2: #0a0a0a;
+      --surface: #181818;
+      --border: #282828;
+      --border2: #363636;
+      --accent: #b0b0b0;
+      --accent2: #707070;
+      --text: #e0e0e0;
+      --muted: #606060;
+      --white: #f0f0f0;
+      --red: #cc2200;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Barlow', sans-serif; overflow-x: hidden; }
+
+    .sting-bg {
+      position: fixed; inset: 0;
+      background-image: url('sting background.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      pointer-events: none; z-index: 0;
+      opacity: 0.9;
+    }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; background: rgba(13,11,9,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Teko', sans-serif; font-size: 1.2rem; letter-spacing: .15em; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 0; list-style: none; }
+    .nav-links a { font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--white); text-decoration: none; padding: .5rem 1rem; border: 1px solid transparent; transition: all .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); border-color: var(--border); }
+    .nav-ig { display: flex; align-items: center; gap: .5rem; font-size: .58rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); text-decoration: none; border: 1px solid var(--border); padding: .4rem .8rem; transition: all .2s; }
+    .nav-ig:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: .4rem; cursor: pointer; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); transition: all .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .mobile-menu { display: none; position: fixed; top: 60px; left: 0; right: 0; background: rgba(13,11,9,0.98); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 499; padding: 1.5rem 2rem; flex-direction: column; gap: .5rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--white); text-decoration: none; padding: .9rem 0; border-bottom: 1px solid var(--border); transition: color .2s; }
+    .mobile-menu a:hover, .mobile-menu a.active { color: var(--accent); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ── PAGES ── */
+    .page { display: none; min-height: 100vh; padding-top: 60px; position: relative; z-index: 1; }
+    .page.active { display: block; }
+
+    /* ── HOME ── */
+    .home-hero {
+      min-height: calc(100vh - 60px);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 3rem 1.5rem 4rem; gap: 0;
+    }
+
+    /* Logo */
+    .logo-wrap { position: relative; z-index: 2; margin-bottom: 1rem; }
+    .logo-video {
+      width: min(600px, 95vw);
+      height: min(340px, 54vw);
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: screen;
+    }
+
+    /* Hero video */
+    .video-wrap { width: min(900px, 96vw); margin-bottom: 2.5rem; position: relative; z-index: 2; }
+    .video-wrap video { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+
+    .hero-tagline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(.85rem, 2vw, 1.2rem); font-style: italic; color: var(--accent2); letter-spacing: .1em; margin-bottom: .4rem; text-align: center; position: relative; z-index: 2; animation: fadeUp .8s ease .2s both; }
+    .hero-title { font-family: 'Teko', sans-serif; font-size: clamp(2.8rem, 10vw, 7rem); letter-spacing: .05em; color: var(--white); line-height: .95; text-align: center; position: relative; z-index: 2; animation: fadeUp .8s ease .4s both; }
+    .hero-title span { color: var(--accent); }
+    .hero-sub { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); margin: 1rem 0 2rem; display: flex; align-items: center; gap: 1rem; position: relative; z-index: 2; animation: fadeUp .8s ease .6s both; }
+    .hero-sub::before, .hero-sub::after { content: ''; width: 24px; height: 1px; background: var(--border2); }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 2; animation: fadeUp .8s ease .8s both; }
+
+    .btn-primary { background: var(--accent); color: var(--bg); font-family: 'Barlow', sans-serif; font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; padding: .85rem 1.8rem; border: none; transition: opacity .2s, transform .2s; text-decoration: none; display: inline-block; }
+    .btn-primary:hover { opacity: .85; transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--text); font-family: 'Barlow', sans-serif; font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; padding: .85rem 1.8rem; border: 1px solid var(--border2); transition: border-color .2s, color .2s, transform .2s; text-decoration: none; display: inline-block; }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* Marquee */
+    .marquee { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: .9rem 0; overflow: hidden; background: var(--surface); }
+    .marquee-track { display: flex; gap: 3rem; animation: marquee 18s linear infinite; white-space: nowrap; }
+    .marquee-item { font-family: 'Teko', sans-serif; font-size: 1rem; letter-spacing: .2em; color: var(--muted); display: flex; align-items: center; gap: 3rem; flex-shrink: 0; }
+    .marquee-dot { width: 4px; height: 4px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* Stats */
+    .home-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+    .home-stat { background: var(--bg2); padding: 2.5rem 1.5rem; text-align: center; }
+    .home-stat-num { font-family: 'Teko', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); color: var(--accent); line-height: 1; }
+    .home-stat-label { font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-top: .4rem; }
+
+    /* ── PRODUCTS ── */
+    .page-header { padding: 3rem 2rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .page-header-num { font-size: .55rem; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); margin-bottom: .3rem; }
+    .page-header-title { font-family: 'Teko', sans-serif; font-size: clamp(2.5rem, 7vw, 5.5rem); color: var(--white); line-height: 1; }
+    .page-header-sub { font-size: .68rem; color: var(--muted); line-height: 1.7; max-width: 280px; }
+
+    .prod-filter { padding: 1rem 2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--surface); flex-wrap: wrap; gap: .8rem; }
+    .filter-tabs { display: flex; flex-wrap: wrap; gap: 0; }
+    .filter-tab { font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; padding: .45rem 1rem; border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all .2s; margin-right: -1px; }
+    .filter-tab:hover { color: var(--accent); z-index: 1; }
+    .filter-tab.active { background: var(--accent); color: var(--bg); border-color: var(--accent); z-index: 1; }
+
+    .prod-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+    .prod-card { background: var(--bg); position: relative; overflow: hidden; }
+    .prod-card:hover .prod-overlay { opacity: 1; }
+    .prod-card:hover .prod-img-inner { transform: scale(1.04); }
+    .prod-img { aspect-ratio: 3/4; overflow: hidden; background: var(--surface); position: relative; }
+    .prod-img-inner { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem; color: var(--muted); font-size: .52rem; letter-spacing: .15em; text-transform: uppercase; transition: transform .4s cubic-bezier(.16,1,.3,1); }
+    .prod-img-inner svg { opacity: .15; }
+    .prod-badge { position: absolute; top: .7rem; left: .7rem; font-size: .5rem; letter-spacing: .12em; text-transform: uppercase; padding: .18rem .45rem; }
+    .badge-new { background: var(--accent); color: var(--bg); }
+    .badge-sold { background: var(--muted); color: var(--bg); }
+    .badge-custom { background: var(--red); color: var(--white); }
+    .prod-overlay { position: absolute; inset: 0; background: rgba(13,11,9,.85); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .3s; }
+    .prod-overlay-text { font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: .5rem 1rem; }
+    .prod-info { padding: 1rem .85rem 1.2rem; border-top: 1px solid var(--border); }
+    .prod-cat { font-size: .52rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent2); margin-bottom: .2rem; }
+    .prod-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; color: var(--white); margin-bottom: .2rem; }
+    .prod-price { font-size: .75rem; color: var(--accent); }
+    .prod-price.sold { color: var(--muted); text-decoration: line-through; font-size: .68rem; }
+
+    .custom-banner { padding: 3.5rem 2rem; background: var(--surface); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+    .custom-title { font-family: 'Teko', sans-serif; font-size: clamp(1.8rem, 5vw, 3.5rem); color: var(--white); line-height: 1; margin-bottom: .7rem; }
+    .custom-title span { color: var(--accent); }
+    .custom-sub { font-size: .7rem; color: var(--muted); line-height: 1.8; max-width: 380px; }
+    .custom-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* ── LOOKBOOK ── */
+    .lookbook-intro { padding: 3rem 2rem; border-bottom: 1px solid var(--border); }
+    .lookbook-intro p { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(1.1rem, 3vw, 1.8rem); font-style: italic; color: var(--accent2); line-height: 1.4; max-width: 600px; }
+
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); }
+    .gallery-item { background: var(--surface); overflow: hidden; position: relative; }
+    .gallery-item:nth-child(1) { grid-column: span 2; aspect-ratio: 2/1; }
+    .gallery-item:nth-child(2) { aspect-ratio: 1; }
+    .gallery-item:nth-child(3) { aspect-ratio: 1; }
+    .gallery-item:nth-child(4) { aspect-ratio: 3/4; }
+    .gallery-item:nth-child(5) { aspect-ratio: 3/4; }
+    .gallery-item:nth-child(6) { aspect-ratio: 1; }
+    .gallery-item:nth-child(7) { grid-column: span 2; aspect-ratio: 2/1; }
+    .gallery-item:nth-child(8) { aspect-ratio: 3/4; }
+    .gallery-item:nth-child(9) { aspect-ratio: 3/4; }
+    .gallery-item:nth-child(10) { aspect-ratio: 3/4; }
+    .gal-inner { width: 100%; height: 100%; min-height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem; color: var(--muted); font-size: .52rem; letter-spacing: .18em; text-transform: uppercase; transition: transform .5s cubic-bezier(.16,1,.3,1); }
+    .gal-inner svg { opacity: .15; }
+    .gallery-item:hover .gal-inner { transform: scale(1.03); }
+    .gal-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,11,9,.8) 0%, transparent 50%); opacity: 0; transition: opacity .3s; display: flex; align-items: flex-end; padding: 1rem; }
+    .gallery-item:hover .gal-overlay { opacity: 1; }
+    .gal-tag { font-size: .52rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: .18rem .45rem; }
+
+    /* ── CONTACTS ── */
+    .contacts-grid { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 60px); }
+    .contacts-left { padding: 5rem 3rem; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
+    .contacts-big-title { font-family: 'Teko', sans-serif; font-size: clamp(2.5rem, 7vw, 6rem); color: var(--white); line-height: .95; margin-bottom: 1.8rem; }
+    .contacts-big-title span { color: var(--accent); display: block; }
+    .contacts-sub { font-size: .72rem; color: var(--muted); line-height: 1.9; max-width: 360px; margin-bottom: 2.5rem; }
+    .contact-items { display: flex; flex-direction: column; gap: .8rem; }
+    .contact-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; border: 1px solid var(--border); background: var(--surface); text-decoration: none; color: var(--text); transition: all .2s; }
+    .contact-item:hover { border-color: var(--accent); transform: translateX(4px); }
+    .contact-item-icon { font-size: 1.1rem; width: 36px; text-align: center; flex-shrink: 0; }
+    .contact-item-label { font-size: .55rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent2); margin-bottom: .15rem; }
+    .contact-item-value { font-size: .75rem; color: var(--white); }
+    .contact-arrow { margin-left: auto; color: var(--muted); transition: transform .2s; }
+    .contact-item:hover .contact-arrow { transform: translateX(4px); color: var(--accent); }
+    .contacts-right { background: var(--surface); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 3rem; gap: 2.5rem; }
+    .contacts-logo-vid { width: min(260px, 70vw); height: min(260px, 70vw); object-fit: contain; mix-blend-mode: lighten; display: block; }
+    .contacts-brand { font-family: 'Teko', sans-serif; font-size: 1.8rem; color: var(--accent); letter-spacing: .15em; text-align: center; }
+    .contacts-desc { font-size: .62rem; color: var(--muted); line-height: 1.8; margin-top: .4rem; text-align: center; }
+    .contacts-socials { display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: center; }
+    .social-btn { padding: .55rem 1.2rem; border: 1px solid var(--border); font-size: .58rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: all .2s; }
+    .social-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 1.8rem 2rem; display: flex; justify-content: space-between; align-items: center; font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); background: var(--bg2); position: relative; z-index: 1; flex-wrap: wrap; gap: .8rem; }
+    .footer-logo { font-family: 'Teko', sans-serif; font-size: 1rem; letter-spacing: .15em; color: var(--accent); }
+    footer a { color: var(--muted); text-decoration: none; transition: color .2s; }
+    footer a:hover { color: var(--accent); }
+
+    /* ── NEWSLETTER POPUP ── */
+    .popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 800; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .4s; padding: 1rem; }
+    .popup-overlay.open { opacity: 1; pointer-events: all; }
+    .popup { background: var(--surface); border: 1px solid var(--border2); width: min(460px, 100%); position: relative; transform: translateY(20px); transition: transform .4s cubic-bezier(.16,1,.3,1); overflow: hidden; }
+    .popup-overlay.open .popup { transform: translateY(0); }
+    .popup-top { background: var(--bg); padding: 2.5rem 2rem 1.8rem; text-align: center; border-bottom: 1px solid var(--border); }
+    .popup-discount { font-family: 'Teko', sans-serif; font-size: 4.5rem; line-height: 1; color: var(--accent); }
+    .popup-discount-label { font-size: .58rem; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); margin-bottom: .8rem; }
+    .popup-title { font-family: 'Teko', sans-serif; font-size: 1.6rem; color: var(--white); margin-bottom: .4rem; }
+    .popup-sub { font-size: .62rem; color: var(--muted); line-height: 1.7; max-width: 280px; margin: 0 auto; }
+    .popup-body { padding: 1.8rem 2rem; }
+    .popup-input-wrap { display: flex; margin-bottom: 1rem; }
+    .popup-input { flex: 1; background: var(--bg); border: 1px solid var(--border2); border-right: none; font-family: 'Barlow', sans-serif; font-size: .62rem; letter-spacing: .08em; color: var(--white); padding: .8rem .9rem; outline: none; transition: border-color .2s; min-width: 0; }
+    .popup-input:focus { border-color: var(--accent); }
+    .popup-input::placeholder { color: var(--muted); }
+    .popup-submit { background: var(--accent); color: var(--bg); font-family: 'Barlow', sans-serif; font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; border: none; padding: .8rem 1rem; transition: opacity .2s; white-space: nowrap; flex-shrink: 0; }
+    .popup-submit:hover { opacity: .85; }
+    .popup-note { font-size: .52rem; color: var(--muted); text-align: center; line-height: 1.6; }
+    .popup-close { position: absolute; top: .8rem; right: .8rem; background: none; border: 1px solid var(--border); width: 26px; height: 26px; color: var(--muted); font-size: .75rem; transition: all .2s; display: flex; align-items: center; justify-content: center; }
+    .popup-close:hover { border-color: var(--accent); color: var(--accent); }
+    .popup-success { padding: 3rem 2rem; text-align: center; display: none; }
+    .popup-success-icon { font-size: 2.2rem; margin-bottom: .8rem; }
+    .popup-success-title { font-family: 'Teko', sans-serif; font-size: 1.6rem; color: var(--white); margin-bottom: .5rem; }
+    .popup-success-sub { font-size: .62rem; color: var(--muted); line-height: 1.7; }
+    .popup-code { display: inline-block; background: var(--bg); border: 1px dashed var(--accent); font-family: 'Teko', sans-serif; font-size: 1.3rem; letter-spacing: .2em; color: var(--accent); padding: .45rem 1.2rem; margin: .8rem 0; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s cubic-bezier(.16,1,.3,1), transform .65s cubic-bezier(.16,1,.3,1); }
+    .reveal.visible { opacity: 1; transform: none; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+
+    /* ════════════════════════════
+       MOBIILI — max 768px
+    ════════════════════════════ */
+    @media (max-width: 768px) {
+      /* Nav */
+      .nav-links, .nav-ig { display: none; }
+      .hamburger { display: flex; }
+
+      /* Home */
+      .home-hero { padding: 2rem 1rem 3.5rem; }
+      .logo-video { width: min(320px, 90vw); height: min(180px, 51vw); }
+      .video-wrap { width: 100%; }
+      .hero-title { font-size: clamp(2.5rem, 14vw, 5rem); }
+      .hero-cta { gap: .7rem; }
+      .btn-primary, .btn-outline { padding: .75rem 1.3rem; font-size: .58rem; }
+
+      /* Stats */
+      .home-stats { grid-template-columns: 1fr 1fr; }
+      .home-stat:last-child { grid-column: span 2; }
+
+      /* Products */
+      .page-header { padding: 2rem 1rem 1.2rem; }
+      .page-header-sub { display: none; }
+      .prod-filter { padding: .8rem 1rem; }
+      .prod-grid { grid-template-columns: 1fr 1fr; }
+
+      /* Custom banner */
+      .custom-banner { flex-direction: column; padding: 2.5rem 1rem; }
+      .custom-actions { width: 100%; }
+      .custom-actions .btn-primary, .custom-actions .btn-outline { flex: 1; text-align: center; }
+
+      /* Lookbook */
+      .lookbook-intro { padding: 2rem 1rem; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:nth-child(1) { grid-column: span 2; aspect-ratio: 16/9; }
+      .gallery-item:nth-child(7) { grid-column: span 2; aspect-ratio: 16/9; }
+      .gallery-item:nth-child(2), .gallery-item:nth-child(3),
+      .gallery-item:nth-child(4), .gallery-item:nth-child(5),
+      .gallery-item:nth-child(6), .gallery-item:nth-child(8),
+      .gallery-item:nth-child(9), .gallery-item:nth-child(10) { aspect-ratio: 1; }
+
+      /* Contacts */
+      .contacts-grid { grid-template-columns: 1fr; }
+      .contacts-right { display: none; }
+      .contacts-left { padding: 2.5rem 1rem; }
+      .contacts-big-title { font-size: clamp(2.5rem, 12vw, 4rem); }
+
+      /* Footer */
+      footer { flex-direction: column; gap: .6rem; padding: 1.2rem 1rem; text-align: center; }
+      footer div { justify-content: center; }
+    }
+
+    /* ════════════════════════════
+       PIENIN MOBIILI — max 380px
+    ════════════════════════════ */
+    @media (max-width: 380px) {
+      .prod-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item:nth-child(1), .gallery-item:nth-child(7) { grid-column: span 1; aspect-ratio: 1; }
+      .home-stat:last-child { grid-column: span 1; }
+      .home-stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sting-bg"></div>
+
+<!-- NEWSLETTER POPUP -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <div id="popupForm">
+      <div class="popup-top">
+        <div class="popup-discount">-10%</div>
+        <div class="popup-discount-label">Alennus ensimmäisestä tilauksesta</div>
+        <h2 class="popup-title">LIITY LISTALLE</h2>
+        <p class="popup-sub">Tilaa uutiskirje ja saat 10% alennuksen ensimmäisestä tilauksesta. Lisäksi ensimmäisenä tietää uusista tuotteista.</p>
+      </div>
+      <div class="popup-body">
+        <div class="popup-input-wrap">
+          <input type="email" class="popup-input" id="emailInput" placeholder="sähköpostiosoite@gmail.com"/>
+          <button class="popup-submit" onclick="submitEmail()">Tilaa</button>
+        </div>
+        <p class="popup-note">Ei roskapostia. Voit peruuttaa milloin tahansa.</p>
+      </div>
+    </div>
+    <div class="popup-success" id="popupSuccess">
+      <div class="popup-success-icon">✦</div>
+      <div class="popup-success-title">Kiitos!</div>
+      <p class="popup-success-sub">Alennuskoodisi on:</p>
+      <div class="popup-code">STING10</div>
+      <p class="popup-success-sub">Käytä koodia tilatessasi.<br/>Tarkista myös sähköpostisi!</p>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo" onclick="showPage('home');return false;">Sting.Rocko</a>
+  <ul class="nav-links">
+    <li><a href="#" class="active" onclick="showPage('home',this);return false;">Home</a></li>
+    <li><a href="#" onclick="showPage('products',this);return false;">Products</a></li>
+    <li><a href="#" onclick="showPage('lookbook',this);return false;">Lookbook</a></li>
+    <li><a href="#" onclick="showPage('contacts',this);return false;">Contacts</a></li>
+  </ul>
+  <a href="https://www.instagram.com/sting.rocko" target="_blank" class="nav-ig">↗ Instagram</a>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Valikko">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="showPage('home');closeMobileMenu();return false;">Home</a>
+  <a href="#" onclick="showPage('products');closeMobileMenu();return false;">Products</a>
+  <a href="#" onclick="showPage('lookbook');closeMobileMenu();return false;">Lookbook</a>
+  <a href="#" onclick="showPage('contacts');closeMobileMenu();return false;">Contacts</a>
+  <a href="https://www.instagram.com/sting.rocko" target="_blank">↗ Instagram</a>
+</div>
+
+<!-- ════ PAGE: HOME ════ -->
+<div class="page active" id="page-home">
+  <div class="home-hero">
+    <div class="logo-wrap">
+      <video class="logo-video" src="sting-logo.webm" autoplay loop muted playsinline webkit-playsinline preload="auto"></video>
+    </div>
+    <div class="video-wrap">
+      <video src="https://res.cloudinary.com/dlc48r8ax/video/upload/v1781184464/final_4.5_sabdph.mp4" autoplay loop muted playsinline webkit-playsinline preload="auto" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></video>
+    </div>
+    <p class="hero-tagline">100% Handmade Garments & Hand Painted Shoes</p>
+    <h1 class="hero-title">STING<br/><span>ROCKO</span></h1>
+    <p class="hero-sub">Based in Finland · Est. 2024</p>
+    <div class="hero-cta">
+      <a href="#" class="btn-primary" onclick="showPage('products');return false;">Katso tuotteet</a>
+      <a href="#" class="btn-outline" onclick="showPage('contacts');return false;">Tee tilaus</a>
+    </div>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="marquee-item">KÄSINTEHTY <span class="marquee-dot"></span></span>
+      <span class="marquee-item">HANDMADE GARMENTS <span class="marquee-dot"></span></span>
+      <span class="marquee-item">HAND PAINTED SHOES <span class="marquee-dot"></span></span>
+      <span class="marquee-item">MADE IN FINLAND <span class="marquee-dot"></span></span>
+      <span class="marquee-item">CUSTOM ORDERS <span class="marquee-dot"></span></span>
+      <span class="marquee-item">100% UNIIKKI <span class="marquee-dot"></span></span>
+      <span class="marquee-item">KÄSINTEHTY <span class="marquee-dot"></span></span>
+      <span class="marquee-item">HANDMADE GARMENTS <span class="marquee-dot"></span></span>
+      <span class="marquee-item">HAND PAINTED SHOES <span class="marquee-dot"></span></span>
+      <span class="marquee-item">MADE IN FINLAND <span class="marquee-dot"></span></span>
+      <span class="marquee-item">CUSTOM ORDERS <span class="marquee-dot"></span></span>
+      <span class="marquee-item">100% UNIIKKI <span class="marquee-dot"></span></span>
+    </div>
+  </div>
+  <div class="home-stats">
+    <div class="home-stat reveal"><div class="home-stat-num">100%</div><div class="home-stat-label">Käsintehty</div></div>
+    <div class="home-stat reveal"><div class="home-stat-num">1:1</div><div class="home-stat-label">Uniikki kappale</div></div>
+    <div class="home-stat reveal"><div class="home-stat-num">FI</div><div class="home-stat-label">Suomessa tehty</div></div>
+  </div>
+  <footer>
+    <span class="footer-logo">Sting.Rocko</span>
+    <span>© 2025 · Finland · All pieces unique</span>
+    <div style="display:flex;gap:1.5rem;"><a href="https://www.instagram.com/sting.rocko" target="_blank">Instagram</a><a href="https://www.vinted.fi/member/186760048-rocko68" target="_blank">Vinted</a></div>
+  </footer>
+</div>
+
+<!-- ════ PAGE: PRODUCTS ════ -->
+<div class="page" id="page-products">
+  <div class="page-header reveal">
+    <div><div class="page-header-num">02 — Tuotteet</div><h1 class="page-header-title">PRODUCTS</h1></div>
+    <p class="page-header-sub">Jokainen kappale käsinommeltu tai maalattu. Kun se on myyty — se on poissa.</p>
+  </div>
+  <div class="prod-filter">
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterProds('all',this)">Kaikki</button>
+      <button class="filter-tab" onclick="filterProds('vaatteet',this)">Vaatteet</button>
+      <button class="filter-tab" onclick="filterProds('kengat',this)">Kengät</button>
+      <button class="filter-tab" onclick="filterProds('setit',this)">Setit</button>
+    </div>
+  </div>
+  <div class="prod-grid" id="prodGrid">
+    <div class="prod-card reveal" data-cat="vaatteet"><div class="prod-img"><div class="prod-img-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><span class="prod-badge badge-new">Uusi</span><div class="prod-overlay"><span class="prod-overlay-text">Katso lisää</span></div></div><div class="prod-info"><div class="prod-cat">Takki · Käsintehty</div><div class="prod-name">Camo Jacket</div><div class="prod-price">110 €</div></div></div>
+    <div class="prod-card reveal" data-cat="kengat"><div class="prod-img"><div class="prod-img-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><span class="prod-badge badge-custom">Custom</span><div class="prod-overlay"><span class="prod-overlay-text">Katso lisää</span></div></div><div class="prod-info"><div class="prod-cat">Kengät · Maalattu</div><div class="prod-name">Butterfly Nike</div><div class="prod-price">120 €</div></div></div>
+    <div class="prod-card reveal" data-cat="vaatteet"><div class="prod-img"><div class="prod-img-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><span class="prod-badge badge-sold">Myyty</span><div class="prod-overlay"><span class="prod-overlay-text">Myyty</span></div></div><div class="prod-info"><div class="prod-cat">Liivi · Käsintehty</div><div class="prod-name">Fleece Vest</div><div class="prod-price sold">75 €</div></div></div>
+    <div class="prod-card reveal" data-cat="setit"><div class="prod-img"><div class="prod-img-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><span class="prod-badge badge-new">Uusi</span><div class="prod-overlay"><span class="prod-overlay-text">Katso lisää</span></div></div><div class="prod-info"><div class="prod-cat">Setti · Käsintehty</div><div class="prod-name">Full Camo Set</div><div class="prod-price">160 €</div></div></div>
+    <div class="prod-card reveal" data-cat="vaatteet"><div class="prod-img"><div class="prod-img-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><span class="prod-badge badge-new">Uusi</span><div class="prod-overlay"><span class="prod-overlay-text">Katso lisää</span></div></div><div class="prod-info"><div class="prod-cat">Huppari · Custom</div><div class="prod-name">Zip Hoodie</div><div class="prod-price">95 €</div></div></div>
+    <div class="prod-card reveal" data-cat="kengat"><div class="prod-img"><div class="prod-img-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><span class="prod-badge badge-custom">Custom</span><div class="prod-overlay"><span class="prod-overlay-text">Tilaa custom</span></div></div><div class="prod-info"><div class="prod-cat">Kengät · Full Custom</div><div class="prod-name">Full Custom Shoes</div><div class="prod-price">alkaen 150 €</div></div></div>
+    <div class="prod-card reveal" data-cat="vaatteet"><div class="prod-img"><div class="prod-img-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><span class="prod-badge badge-new">Uusi</span><div class="prod-overlay"><span class="prod-overlay-text">Katso lisää</span></div></div><div class="prod-info"><div class="prod-cat">Housut · Käsintehty</div><div class="prod-name">Wide Leg Pants</div><div class="prod-price">89 €</div></div></div>
+    <div class="prod-card reveal" data-cat="setit"><div class="prod-img"><div class="prod-img-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><span class="prod-badge badge-custom">Tulossa</span><div class="prod-overlay"><span class="prod-overlay-text">Pian saatavilla</span></div></div><div class="prod-info"><div class="prod-cat">Setti · Käsintehty</div><div class="prod-name">Uusi setti</div><div class="prod-price">— €</div></div></div>
+    <div class="prod-card reveal" data-cat="vaatteet"><div class="prod-img"><div class="prod-img-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><span class="prod-badge badge-new">Uusi</span><div class="prod-overlay"><span class="prod-overlay-text">Katso lisää</span></div></div><div class="prod-info"><div class="prod-cat">Takki · Käsintehty</div><div class="prod-name">Winter Jacket</div><div class="prod-price">130 €</div></div></div>
+  </div>
+  <div class="custom-banner reveal">
+    <div><h2 class="custom-title">HALUATKO JOTAIN<br/><span>TÄYSIN OMAA?</span></h2><p class="custom-sub">Ota yhteyttä Instagramissa tai sähköpostilla. Kerro idea — vaate, kengät tai kokonainen asu — ja tehdään siitä totta.</p></div>
+    <div class="custom-actions"><a href="https://www.instagram.com/sting.rocko" target="_blank" class="btn-primary">Instagram DM</a><a href="mailto:stingrocko@gmail.com" class="btn-outline">Sähköposti</a></div>
+  </div>
+  <footer>
+    <span class="footer-logo">Sting.Rocko</span>
+    <span>© 2025 · Finland · All pieces unique</span>
+    <div style="display:flex;gap:1.5rem;"><a href="https://www.instagram.com/sting.rocko" target="_blank">Instagram</a><a href="https://www.vinted.fi/member/186760048-rocko68" target="_blank">Vinted</a></div>
+  </footer>
+</div>
+
+<!-- ════ PAGE: LOOKBOOK ════ -->
+<div class="page" id="page-lookbook">
+  <div class="page-header reveal">
+    <div><div class="page-header-num">03 — Galleria</div><h1 class="page-header-title">LOOKBOOK</h1></div>
+    <p class="page-header-sub">Jokainen kuva — uniikki hetki, uniikki kappale.</p>
+  </div>
+  <div class="lookbook-intro reveal"><p>"Vaatteet eivät ole vain vaatteita — ne ovat taidetta jonka kannat mukanasi."</p></div>
+  <div class="gallery-grid">
+    <div class="gallery-item reveal"><div class="gal-inner"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><div class="gal-overlay"><span class="gal-tag">Vaatteet</span></div></div>
+    <div class="gallery-item reveal"><div class="gal-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><div class="gal-overlay"><span class="gal-tag">Kengät</span></div></div>
+    <div class="gallery-item reveal"><div class="gal-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><div class="gal-overlay"><span class="gal-tag">Setti</span></div></div>
+    <div class="gallery-item reveal"><div class="gal-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><div class="gal-overlay"><span class="gal-tag">Vaatteet</span></div></div>
+    <div class="gallery-item reveal"><div class="gal-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><div class="gal-overlay"><span class="gal-tag">Kengät</span></div></div>
+    <div class="gallery-item reveal"><div class="gal-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><div class="gal-overlay"><span class="gal-tag">Prosessi</span></div></div>
+    <div class="gallery-item reveal"><div class="gal-inner"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><div class="gal-overlay"><span class="gal-tag">Vaatteet</span></div></div>
+    <div class="gallery-item reveal"><div class="gal-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><div class="gal-overlay"><span class="gal-tag">Kengät</span></div></div>
+    <div class="gallery-item reveal"><div class="gal-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><div class="gal-overlay"><span class="gal-tag">Setti</span></div></div>
+    <div class="gallery-item reveal"><div class="gal-inner"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Lisää kuva</div><div class="gal-overlay"><span class="gal-tag">Prosessi</span></div></div>
+  </div>
+  <footer>
+    <span class="footer-logo">Sting.Rocko</span>
+    <span>© 2025 · Finland · All pieces unique</span>
+    <div style="display:flex;gap:1.5rem;"><a href="https://www.instagram.com/sting.rocko" target="_blank">Instagram</a><a href="https://www.vinted.fi/member/186760048-rocko68" target="_blank">Vinted</a></div>
+  </footer>
+</div>
+
+<!-- ════ PAGE: CONTACTS ════ -->
+<div class="page" id="page-contacts">
+  <div class="contacts-grid">
+    <div class="contacts-left">
+      <h1 class="contacts-big-title reveal">OTA<br/><span>YHTEYTTÄ</span></h1>
+      <p class="contacts-sub reveal">Haluatko tilata jotain omalla idealla? Kysymyksiä tuotteista? Ota yhteyttä — vastataan nopeasti.</p>
+      <div class="contact-items">
+        <a href="https://www.instagram.com/sting.rocko" target="_blank" class="contact-item reveal"><span class="contact-item-icon">📷</span><div><div class="contact-item-label">Instagram</div><div class="contact-item-value">@sting.rocko</div></div><span class="contact-arrow">→</span></a>
+        <a href="mailto:stingrocko@gmail.com" class="contact-item reveal"><span class="contact-item-icon">✉</span><div><div class="contact-item-label">Sähköposti</div><div class="contact-item-value">stingrocko@gmail.com</div></div><span class="contact-arrow">→</span></a>
+        <a href="https://www.vinted.fi/member/186760048-rocko68" target="_blank" class="contact-item reveal"><span class="contact-item-icon">🛍</span><div><div class="contact-item-label">Vinted</div><div class="contact-item-value">rocko68</div></div><span class="contact-arrow">→</span></a>
+        <div class="contact-item reveal"><span class="contact-item-icon">📍</span><div><div class="contact-item-label">Sijainti</div><div class="contact-item-value">Finland 🇫🇮</div></div></div>
+      </div>
+    </div>
+    <div class="contacts-right">
+      <video class="contacts-logo-vid" src="FINAL SPINNING STING NEW.webm" autoplay loop muted playsinline webkit-playsinline preload="auto"></video>
+      <div>
+        <div class="contacts-brand">Sting.Rocko</div>
+        <p class="contacts-desc">100% Handmade Garments<br/>Hand Painted Shoes<br/>Based in Finland</p>
+        <div class="contacts-socials">
+          <a href="https://www.instagram.com/sting.rocko" target="_blank" class="social-btn">Instagram</a>
+          <a href="https://www.vinted.fi/member/186760048-rocko68" target="_blank" class="social-btn">Vinted</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-logo">Sting.Rocko</span>
+    <span>© 2025 · Finland · All pieces unique</span>
+    <div style="display:flex;gap:1.5rem;"><a href="https://www.instagram.com/sting.rocko" target="_blank">Instagram</a><a href="https://www.vinted.fi/member/186760048-rocko68" target="_blank">Vinted</a></div>
+  </footer>
+</div>
+
+<script>
+  // Popup
+  function openPopup() { document.getElementById('popupOverlay').classList.add('open') }
+  function closePopup() { document.getElementById('popupOverlay').classList.remove('open') }
+  function submitEmail() {
+    const email = document.getElementById('emailInput').value
+    if (!email || !email.includes('@')) { document.getElementById('emailInput').style.borderColor='#cc2200'; return }
+    document.getElementById('popupForm').style.display = 'none'
+    document.getElementById('popupSuccess').style.display = 'block'
+  }
+  document.getElementById('popupOverlay').addEventListener('click', function(e) { if(e.target===this) closePopup() })
+  if (!sessionStorage.getItem('popupShown')) {
+    setTimeout(() => { openPopup(); sessionStorage.setItem('popupShown','1') }, 3000)
+  }
+
+  // Hamburger
+  function toggleMenu() {
+    const hb = document.getElementById('hamburger')
+    const mm = document.getElementById('mobileMenu')
+    hb.classList.toggle('open')
+    mm.classList.toggle('open')
+  }
+  function closeMobileMenu() {
+    document.getElementById('hamburger').classList.remove('open')
+    document.getElementById('mobileMenu').classList.remove('open')
+  }
+
+  // Page nav
+  function showPage(name, linkEl) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'))
+    document.getElementById('page-'+name).classList.add('active')
+    document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => a.classList.remove('active'))
+    if (linkEl) linkEl.classList.add('active')
+    window.scrollTo(0,0)
+    setTimeout(() => {
+      document.querySelectorAll('#page-'+name+' .reveal').forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible')
+      })
+    }, 50)
+  }
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') })
+  }, { threshold: 0.08 })
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el))
+
+  // Filter
+  function filterProds(cat, btn) {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'))
+    btn.classList.add('active')
+    document.querySelectorAll('.prod-card').forEach(c => {
+      c.style.display = (cat==='all' || c.dataset.cat===cat) ? 'block' : 'none'
+    })
+  }
+
+  // Force video playback on mobile
+  document.querySelectorAll('video').forEach(v => {
+    v.play().catch(() => {
+      document.addEventListener('touchstart', () => v.play(), { once: true })
+    })
+  })
+
+  // Initial reveals
+  document.querySelectorAll('#page-home .reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible')
+  })
+</script>
+</body>
+</html>
