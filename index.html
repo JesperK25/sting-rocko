@@ -75,7 +75,16 @@
     }
 
     /* Logo */
-    .logo-wrap { position: relative; z-index: 2; margin-bottom: 1rem; mix-blend-mode: screen; background: #000; }
+    .logo-wrap {
+      position: relative; z-index: 2; margin-bottom: 1rem;
+      background: #000;
+      -webkit-mask-image: radial-gradient(ellipse 80% 85% at 50% 50%, black 30%, rgba(0,0,0,0.6) 52%, transparent 72%);
+      mask-image: radial-gradient(ellipse 80% 85% at 50% 50%, black 30%, rgba(0,0,0,0.6) 52%, transparent 72%);
+    }
+    /* Desktop: screen blend makes black bg fully invisible */
+    @media (hover: hover) {
+      .logo-wrap { mix-blend-mode: screen; }
+    }
     .logo-video {
       width: min(600px, 95vw);
       height: min(340px, 54vw);
