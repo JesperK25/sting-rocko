@@ -350,8 +350,10 @@
 
   /* ── Scroll animation ── */
   .reveal {
-    opacity: 0; transform: translateY(22px);
     transition: opacity .55s ease, transform .55s ease;
+  }
+  .reveal.will-animate {
+    opacity: 0; transform: translateY(22px);
   }
   .reveal.visible { opacity: 1; transform: none; }
 
@@ -361,7 +363,7 @@
     .btn:hover { transform: none; }
     .loc-card:hover, .why-card:hover, .service-card:hover, .quote-card { transform: none; }
     html { scroll-behavior: auto; }
-    .reveal { opacity: 1; transform: none; transition: none; }
+    .reveal, .reveal.will-animate { opacity: 1; transform: none; transition: none; }
   }
 
   /* ── Mobile ── */
@@ -735,15 +737,37 @@
 </footer>
 
 <script>
-  /* Scroll-animaatiot */
-  const observer = new IntersectionObserver(
-    entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }),
-    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-  );
-  document.querySelectorAll('.reveal').forEach((el, i) => {
-    el.style.transitionDelay = (i % 4) * 0.07 + 's';
-    observer.observe(el);
-  });
+  /* Scroll-animaatiot — JS piilottaa elementit vasta tässä, joten ilman JS kaikki on näkyvissä */
+  const revealEls = document.querySelectorAll('.reveal');
+
+  function showAll() {
+    revealEls.forEach(el => { el.classList.remove('will-animate'); el.classList.add('visible'); });
+  }
+
+  if ('IntersectionObserver' in window) {
+    revealEls.forEach((el, i) => {
+      el.classList.add('will-animate');
+      el.style.transitionDelay = (i % 4) * 0.07 + 's';
+    });
+
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.08 }
+    );
+    revealEls.forEach(el => observer.observe(el));
+
+    /* Fallback: jos observer ei laukea 2s:ssa, näytä kaikki */
+    setTimeout(() => {
+      revealEls.forEach(el => { if (!el.classList.contains('visible')) el.classList.add('visible'); });
+    }, 2000);
+  } else {
+    showAll();
+  }
 
   /* Scrolled nav shadow */
   const header = document.querySelector('header.site');
