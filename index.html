@@ -4,6 +4,11 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sting Rocko — 100% Handmade</title>
+  <meta name="description" content="Sting Rocko — 100% käsintehdyt vaatteet ja maalatut kengät Suomesta. Jokainen kappale uniikki."/>
+  <meta property="og:title" content="Sting Rocko — 100% Handmade"/>
+  <meta property="og:description" content="Käsintehdyt vaatteet ja maalatut kengät. Based in Finland."/>
+  <meta property="og:image" content="sting background.jpg"/>
+  <meta property="og:type" content="website"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Barlow+Condensed:wght@300;400;500;600&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
@@ -70,13 +75,12 @@
     }
 
     /* Logo */
-    .logo-wrap { position: relative; z-index: 2; margin-bottom: 1rem; }
+    .logo-wrap { position: relative; z-index: 2; margin-bottom: 1rem; mix-blend-mode: screen; background: #000; }
     .logo-video {
       width: min(600px, 95vw);
       height: min(340px, 54vw);
       object-fit: contain;
       display: block;
-      mix-blend-mode: screen;
     }
 
     /* Hero video */
@@ -116,7 +120,7 @@
 
     .prod-filter { padding: 1rem 2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--surface); flex-wrap: wrap; gap: .8rem; }
     .filter-tabs { display: flex; flex-wrap: wrap; gap: 0; }
-    .filter-tab { font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; padding: .45rem 1rem; border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all .2s; margin-right: -1px; }
+    .filter-tab { font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; padding: .45rem 1rem; border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all .2s; margin-right: -1px; cursor: pointer; }
     .filter-tab:hover { color: var(--accent); z-index: 1; }
     .filter-tab.active { background: var(--accent); color: var(--bg); border-color: var(--accent); z-index: 1; }
 
@@ -214,7 +218,7 @@
     .popup-submit { background: var(--accent); color: var(--bg); font-family: 'Barlow', sans-serif; font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; border: none; padding: .8rem 1rem; transition: opacity .2s; white-space: nowrap; flex-shrink: 0; }
     .popup-submit:hover { opacity: .85; }
     .popup-note { font-size: .52rem; color: var(--muted); text-align: center; line-height: 1.6; }
-    .popup-close { position: absolute; top: .8rem; right: .8rem; background: none; border: 1px solid var(--border); width: 26px; height: 26px; color: var(--muted); font-size: .75rem; transition: all .2s; display: flex; align-items: center; justify-content: center; }
+    .popup-close { position: absolute; top: .8rem; right: .8rem; background: none; border: 1px solid var(--border); width: 26px; height: 26px; color: var(--muted); font-size: .75rem; transition: all .2s; display: flex; align-items: center; justify-content: center; cursor: pointer; }
     .popup-close:hover { border-color: var(--accent); color: var(--accent); }
     .popup-success { padding: 3rem 2rem; text-align: center; display: none; }
     .popup-success-icon { font-size: 2.2rem; margin-bottom: .8rem; }
@@ -326,12 +330,12 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo" onclick="showPage('home');return false;">Sting.Rocko</a>
+  <a href="#" class="nav-logo" data-page="home" onclick="showPage('home');return false;">Sting.Rocko</a>
   <ul class="nav-links">
-    <li><a href="#" class="active" onclick="showPage('home',this);return false;">Home</a></li>
-    <li><a href="#" onclick="showPage('products',this);return false;">Products</a></li>
-    <li><a href="#" onclick="showPage('lookbook',this);return false;">Lookbook</a></li>
-    <li><a href="#" onclick="showPage('contacts',this);return false;">Contacts</a></li>
+    <li><a href="#" data-page="home" class="active" onclick="showPage('home');return false;">Home</a></li>
+    <li><a href="#" data-page="products" onclick="showPage('products');return false;">Products</a></li>
+    <li><a href="#" data-page="lookbook" onclick="showPage('lookbook');return false;">Lookbook</a></li>
+    <li><a href="#" data-page="contacts" onclick="showPage('contacts');return false;">Contacts</a></li>
   </ul>
   <a href="https://www.instagram.com/sting.rocko" target="_blank" class="nav-ig">↗ Instagram</a>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Valikko">
@@ -341,10 +345,10 @@
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#" onclick="showPage('home');closeMobileMenu();return false;">Home</a>
-  <a href="#" onclick="showPage('products');closeMobileMenu();return false;">Products</a>
-  <a href="#" onclick="showPage('lookbook');closeMobileMenu();return false;">Lookbook</a>
-  <a href="#" onclick="showPage('contacts');closeMobileMenu();return false;">Contacts</a>
+  <a href="#" data-page="home" onclick="showPage('home');closeMobileMenu();return false;">Home</a>
+  <a href="#" data-page="products" onclick="showPage('products');closeMobileMenu();return false;">Products</a>
+  <a href="#" data-page="lookbook" onclick="showPage('lookbook');closeMobileMenu();return false;">Lookbook</a>
+  <a href="#" data-page="contacts" onclick="showPage('contacts');closeMobileMenu();return false;">Contacts</a>
   <a href="https://www.instagram.com/sting.rocko" target="_blank">↗ Instagram</a>
 </div>
 
@@ -518,11 +522,12 @@
   }
 
   // Page nav
-  function showPage(name, linkEl) {
+  function showPage(name) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'))
     document.getElementById('page-'+name).classList.add('active')
-    document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => a.classList.remove('active'))
-    if (linkEl) linkEl.classList.add('active')
+    document.querySelectorAll('.nav-links a[data-page], .mobile-menu a[data-page]').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === name)
+    })
     window.scrollTo(0,0)
     setTimeout(() => {
       document.querySelectorAll('#page-'+name+' .reveal').forEach(el => {
@@ -542,7 +547,7 @@
     document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'))
     btn.classList.add('active')
     document.querySelectorAll('.prod-card').forEach(c => {
-      c.style.display = (cat==='all' || c.dataset.cat===cat) ? 'block' : 'none'
+      c.style.display = (cat==='all' || c.dataset.cat===cat) ? '' : 'none'
     })
   }
 
