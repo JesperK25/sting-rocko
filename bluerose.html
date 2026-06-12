@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Bluerose Team Oy — Parturi-kampaamo · Ilmajoki &amp; Seinäjoki</title>
+<meta name="description" content="Bluerose Team Oy — ammattitaitoinen parturi-kampaamo kahdessa liikkeessä Ilmajoella ja Seinäjoella. Leikkaukset, värjäykset, permanentit ja juhlakampaukset.">
+<meta name="keywords" content="parturi, kampaamo, hiussalonki, Ilmajoki, Seinäjoki, värjäys, permanentti, juhlakampaus, parturipalvelut">
+<meta property="og:title" content="Bluerose Team Oy — Parturi-kampaamo">
+<meta property="og:description" content="Koko perheen parturi-kampaamo Ilmajoella ja Seinäjoella. Leikkaukset, värjäykset, permanentit ja juhlatyylit.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fi_FI">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HairSalon",
+  "name": "Bluerose Team Oy",
+  "image": "",
+  "description": "Ammattitaitoinen parturi-kampaamo kahdessa liikkeessä — Ilmajoki ja Seinäjoki.",
+  "priceRange": "€€",
+  "currenciesAccepted": "EUR",
+  "paymentAccepted": "Cash, Credit Card",
+  "address": [
+    {
+      "@type": "PostalAddress",
+      "streetAddress": "Kauppatie 7",
+      "addressLocality": "Ilmajoki",
+      "postalCode": "60800",
+      "addressCountry": "FI"
+    }
+  ],
+  "telephone": "+35864247225",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens": "09:00",
+      "closes": "17:00"
+    }
+  ]
+}
+</script>
+
+<style>
+  :root {
+    color-scheme: light;
+    --yonsini: #1C2A44;
+    --siniruusu: #4A6FA5;
+    --ruusu: #C98A9D;
+    --usva: #EEF1F5;
+    --paperi: #FBFCFD;
+    --muste: #22293A;
+    --display: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Hanken Grotesk', 'Segoe UI', system-ui, sans-serif;
+    --radius: 18px;
+    --shadow-sm: 0 2px 8px rgba(28,42,68,.07);
+    --shadow-md: 0 8px 24px rgba(28,42,68,.10);
+    --shadow-lg: 0 16px 40px rgba(28,42,68,.14);
+    --transition: .22s cubic-bezier(.4,0,.2,1);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; background: var(--usva); }
+  body { font-family: var(--sans); color: var(--muste); background: var(--usva); line-height: 1.6; font-size: 16.5px; overflow-x: hidden; }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--siniruusu); outline-offset: 3px; border-radius: 2px; }
+
+  /* Skip link */
+  .skip-link {
+    position: absolute; top: -100%; left: 1rem; z-index: 9999;
+    background: var(--yonsini); color: #fff; padding: .6rem 1.2rem;
+    border-radius: 0 0 8px 8px; font-weight: 600; text-decoration: none;
+    transition: top .2s;
+  }
+  .skip-link:focus { top: 0; }
+
+  /* Draft bar */
+  .draft-bar {
+    background: var(--yonsini); color: #cfd9ea;
+    font-size: .78rem; letter-spacing: .04em; text-align: center;
+    padding: .45rem 1rem;
+  }
+  .draft-bar a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+
+  /* ── Nav ── */
+  header.site {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(238,241,245,.93);
+    backdrop-filter: blur(10px) saturate(1.4);
+    border-bottom: 1px solid rgba(28,42,68,.08);
+    transition: box-shadow var(--transition);
+  }
+  header.site.scrolled { box-shadow: var(--shadow-sm); }
+  .nav {
+    max-width: 1080px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .85rem 1.5rem;
+  }
+  .wordmark {
+    font-family: var(--display); font-weight: 600; font-size: 1.35rem;
+    letter-spacing: .02em; color: var(--yonsini); text-decoration: none;
+    display: flex; align-items: baseline; gap: .45rem;
+  }
+  .wordmark span {
+    font-family: var(--sans); font-size: .68rem; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase; color: var(--siniruusu);
+  }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-weight: 500; font-size: .93rem; color: var(--muste);
+    position: relative; padding: .2rem 0;
+  }
+  .nav-links a:not(.btn)::after {
+    content: ""; position: absolute; left: 0; bottom: -2px; height: 2px; width: 0;
+    background: var(--ruusu); transition: width var(--transition);
+  }
+  .nav-links a:not(.btn):hover::after, .nav-links a:not(.btn).active::after { width: 100%; }
+
+  /* hamburger */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px; cursor: pointer;
+    background: none; border: none; padding: .4rem; border-radius: 6px;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 2px; background: var(--yonsini);
+    border-radius: 2px; transition: transform var(--transition), opacity var(--transition);
+  }
+  .hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* mobile drawer */
+  .mobile-drawer {
+    display: none; position: fixed; inset: 0; z-index: 49;
+    background: rgba(238,241,245,.98); backdrop-filter: blur(12px);
+    padding: 5.5rem 2rem 2rem;
+    flex-direction: column; gap: 2.2rem;
+  }
+  .mobile-drawer.open { display: flex; }
+  .mobile-drawer a {
+    font-family: var(--display); font-size: 2rem; font-weight: 500;
+    color: var(--yonsini); text-decoration: none;
+  }
+  .mobile-drawer a.btn { font-family: var(--sans); font-size: 1rem; align-self: flex-start; }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-block; text-decoration: none; font-weight: 600;
+    border-radius: 999px; padding: .7rem 1.5rem; font-size: .95rem;
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition);
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--yonsini); color: #fff; box-shadow: 0 6px 18px rgba(28,42,68,.25); }
+  .btn-primary:hover { background: #243558; box-shadow: 0 10px 26px rgba(28,42,68,.3); }
+  .btn-ghost { border: 1.5px solid rgba(28,42,68,.35); color: var(--yonsini); }
+  .btn-ghost:hover { border-color: var(--yonsini); }
+  .btn-rose { background: var(--ruusu); color: #fff; box-shadow: 0 6px 18px rgba(201,138,157,.35); }
+  .btn-rose:hover { background: #b97689; box-shadow: 0 10px 26px rgba(201,138,157,.42); }
+
+  /* ── Hero ── */
+  .hero {
+    max-width: 1080px; margin: 0 auto;
+    padding: 5rem 1.5rem 5.5rem;
+    display: grid; grid-template-columns: 1.15fr .85fr;
+    gap: 3rem; align-items: center;
+  }
+  .eyebrow {
+    font-size: .74rem; font-weight: 700; letter-spacing: .24em;
+    text-transform: uppercase; color: var(--siniruusu); margin-bottom: 1.1rem;
+  }
+  h1 {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    line-height: 1.05; color: var(--yonsini); margin-bottom: 1.25rem;
+  }
+  h1 em { font-style: italic; color: var(--siniruusu); }
+  .lead { font-size: 1.1rem; max-width: 34rem; color: #3c4458; margin-bottom: 2.2rem; }
+  .hero-ctas { display: flex; gap: .9rem; flex-wrap: wrap; margin-bottom: 1.6rem; }
+  .hero-note { font-size: .86rem; color: #5b6478; }
+  .hero-note strong { color: var(--yonsini); }
+
+  .rose-wrap { display: flex; justify-content: center; }
+  .rose-wrap svg { width: min(300px, 80%); height: auto; filter: drop-shadow(0 12px 32px rgba(74,111,165,.18)); }
+  .rose-path {
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
+    stroke-dasharray: 1200; stroke-dashoffset: 1200;
+    animation: draw 2.4s ease forwards;
+  }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  /* ── Why us ── */
+  .why { background: var(--paperi); border-top: 1px solid rgba(28,42,68,.06); border-bottom: 1px solid rgba(28,42,68,.06); }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+  }
+  .why-card {
+    padding: 1.8rem; border-radius: var(--radius);
+    background: var(--usva); border: 1px solid rgba(28,42,68,.06);
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+  .why-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .why-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--yonsini); display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .why-icon svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+  .why-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--yonsini); margin-bottom: .4rem; }
+  .why-card p { font-size: .93rem; color: #4a5268; }
+
+  /* ── Services ── */
+  .services { border-bottom: 1px solid rgba(28,42,68,.06); }
+  .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+  .service-card {
+    padding: 1.5rem 1.6rem; border-radius: var(--radius);
+    background: var(--paperi); border: 1px solid rgba(28,42,68,.07);
+    display: flex; gap: 1rem; align-items: flex-start;
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  }
+  .service-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-sm); border-color: rgba(74,111,165,.2); }
+  .svc-icon {
+    width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--siniruusu) 0%, var(--yonsini) 100%);
+  }
+  .svc-icon svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .service-card:nth-child(even) .svc-icon { background: linear-gradient(135deg, var(--ruusu) 0%, #a06070 100%); }
+  .service-card h3 { font-size: 1rem; font-weight: 700; color: var(--yonsini); margin-bottom: .2rem; }
+  .service-card p { font-size: .92rem; color: #4a5268; }
+
+  /* ── Section structure ── */
+  section { padding: 4.8rem 1.5rem; }
+  .inner { max-width: 1080px; margin: 0 auto; }
+  h2 {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(1.9rem, 4vw, 2.7rem);
+    color: var(--yonsini); margin-bottom: .5rem;
+  }
+  .section-intro { max-width: 36rem; color: #3c4458; margin-bottom: 2.8rem; }
+
+  /* ── Pricing ── */
+  .pricing { background: var(--paperi); border-top: 1px solid rgba(28,42,68,.06); }
+  .price-cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem 4rem; }
+  .price-group { background: var(--usva); border-radius: var(--radius); padding: 2rem; border: 1px solid rgba(28,42,68,.06); }
+  .price-group h3 {
+    font-family: var(--display); font-size: 1.5rem; font-weight: 600;
+    color: var(--yonsini); margin-bottom: 1.2rem;
+    padding-bottom: .55rem; border-bottom: 2px solid var(--ruusu);
+    display: inline-block;
+  }
+  .price-row {
+    display: flex; align-items: baseline; gap: .6rem;
+    padding: .55rem 0; font-size: .97rem;
+    border-bottom: 1px solid rgba(28,42,68,.05);
+  }
+  .price-row:last-child { border-bottom: none; }
+  .price-row .name { color: var(--muste); }
+  .price-row .leader { flex: 1; border-bottom: 1px dashed rgba(28,42,68,.25); transform: translateY(-4px); }
+  .price-row .price { font-weight: 700; color: var(--yonsini); white-space: nowrap; }
+  .price-disclaimer {
+    margin-top: 2.4rem; font-size: .84rem; color: #5b6478;
+    border-left: 3px solid var(--siniruusu); padding: .6rem .9rem;
+    background: rgba(74,111,165,.06); border-radius: 0 8px 8px 0;
+  }
+
+  /* ── Testimonials ── */
+  .testimonials { background: var(--yonsini); }
+  .testimonials h2 { color: #fff; }
+  .testimonials .section-intro { color: #c0cce0; }
+  .quote-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .quote-card {
+    background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+    border-radius: var(--radius); padding: 1.8rem;
+    transition: background var(--transition);
+  }
+  .quote-card:hover { background: rgba(255,255,255,.11); }
+  .quote-card blockquote { font-family: var(--display); font-size: 1.08rem; font-style: italic; color: #dce6f5; margin-bottom: 1.2rem; line-height: 1.55; }
+  .quote-card cite { font-style: normal; font-size: .85rem; color: #8da4c8; font-weight: 600; }
+  .quote-stars { display: flex; gap: 2px; margin-bottom: .9rem; }
+  .quote-stars svg { width: 14px; height: 14px; fill: var(--ruusu); }
+
+  /* ── Locations ── */
+  .locations { background: var(--usva); border-top: 1px solid rgba(28,42,68,.06); }
+  .loc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
+  .loc-card {
+    background: var(--paperi); border: 1px solid rgba(28,42,68,.08);
+    border-radius: var(--radius); padding: 2.2rem;
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+  .loc-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .loc-badge {
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--siniruusu); background: rgba(74,111,165,.1); border-radius: 999px;
+    padding: .28rem .75rem; margin-bottom: .9rem;
+  }
+  .loc-badge svg { width: 11px; height: 11px; stroke: var(--siniruusu); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .loc-card .city { font-family: var(--display); font-size: 1.8rem; font-weight: 600; color: var(--yonsini); margin-bottom: .15rem; }
+  .loc-card .sub { font-size: .86rem; color: var(--siniruusu); font-weight: 600; margin-bottom: 1.1rem; }
+  .loc-card address { font-style: normal; font-size: .97rem; color: #3c4458; margin-bottom: 1rem; }
+  .loc-card .hours { font-size: .92rem; color: #4a5268; margin-bottom: 1.6rem; }
+  .loc-card .hours strong { color: var(--yonsini); }
+  .loc-card-actions { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; }
+  .loc-card .tel {
+    text-decoration: none; font-weight: 700; color: var(--yonsini);
+    border-bottom: 2px solid var(--ruusu); padding-bottom: 1px; font-size: .97rem;
+  }
+  .loc-card .map-link {
+    font-size: .85rem; color: var(--siniruusu); font-weight: 600;
+    text-decoration: none; display: flex; align-items: center; gap: .3rem;
+  }
+  .loc-card .map-link:hover { text-decoration: underline; }
+  .loc-card .map-link svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ── CTA band ── */
+  .cta-band {
+    background: linear-gradient(135deg, var(--yonsini) 0%, #2a3f66 100%);
+    color: #fff; text-align: center;
+  }
+  .cta-band h2 { color: #fff; }
+  .cta-band p { color: #c9d4e8; max-width: 34rem; margin: 0 auto 2.2rem; }
+  .cta-band .hero-ctas { justify-content: center; }
+  .cta-band .btn-ghost { border-color: rgba(255,255,255,.45); color: #fff; }
+  .cta-band .btn-ghost:hover { border-color: #fff; }
+
+  /* ── Footer ── */
+  footer {
+    background: #141d2e; padding: 3rem 1.5rem 2.2rem;
+    text-align: center; color: #7a8ca8;
+  }
+  .footer-inner { max-width: 1080px; margin: 0 auto; }
+  .footer-logo { font-family: var(--display); font-size: 1.6rem; font-weight: 600; color: #c9d4e8; margin-bottom: 1.4rem; }
+  .footer-logo span { font-family: var(--sans); font-size: .65rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: #5a78a8; margin-left: .4rem; }
+  .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: left; margin-bottom: 2.4rem; }
+  .footer-col h4 { font-size: .78rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #8da4c8; margin-bottom: .9rem; }
+  .footer-col p, .footer-col address { font-style: normal; font-size: .9rem; color: #6a7e9a; line-height: 1.7; }
+  .footer-col a { color: #8da4c8; text-decoration: none; }
+  .footer-col a:hover { color: #c9d4e8; text-decoration: underline; }
+  .footer-divider { height: 1px; background: rgba(255,255,255,.07); margin-bottom: 1.8rem; }
+  .footer-bottom { font-size: .82rem; color: #4a5e78; }
+  .footer-bottom a { color: #5a78a8; text-decoration: none; font-weight: 600; }
+  .footer-bottom a:hover { text-decoration: underline; }
+
+  /* ── Scroll animation ── */
+  .reveal {
+    opacity: 0; transform: translateY(22px);
+    transition: opacity .55s ease, transform .55s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .rose-path { animation: none; stroke-dashoffset: 0; }
+    .btn:hover { transform: none; }
+    .loc-card:hover, .why-card:hover, .service-card:hover, .quote-card { transform: none; }
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 840px) {
+    .hero { grid-template-columns: 1fr; padding-top: 3.2rem; text-align: left; }
+    .rose-wrap { order: -1; margin-bottom: .5rem; }
+    .rose-wrap svg { width: min(190px, 52%); }
+    .service-grid, .price-cols, .loc-grid, .why-grid, .quote-grid, .footer-grid {
+      grid-template-columns: 1fr;
+    }
+    .price-group { padding: 1.6rem; }
+  }
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    section { padding: 3.5rem 1.25rem; }
+    .quote-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#paamenu">Siirry pääsisältöön</a>
+
+<div class="draft-bar">
+  Sivuluonnos Bluerose Team Oy:lle · toteutus <a href="https://jesperkarna.fi">Jesper Kärnä — jesperkarna.fi</a>
+</div>
+
+<header class="site" id="sivun-alkuun">
+  <nav class="nav" aria-label="Päävalikko">
+    <a class="wordmark" href="#alku" aria-label="Bluerose Team Oy — etusivu">Blue&nbsp;Rose <span>Team Oy</span></a>
+    <ul class="nav-links" id="paamenu" role="list">
+      <li><a href="#palvelut">Palvelut</a></li>
+      <li><a href="#hinnasto">Hinnasto</a></li>
+      <li><a href="#toimipisteet">Toimipisteet</a></li>
+      <li><a class="btn btn-primary" href="#varaa">Varaa aika</a></li>
+    </ul>
+    <button class="hamburger" aria-controls="mobiilimenu" aria-expanded="false" aria-label="Avaa valikko">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<nav class="mobile-drawer" id="mobiilimenu" aria-label="Mobiilinavigaatio" role="dialog" aria-modal="true">
+  <a href="#palvelut">Palvelut</a>
+  <a href="#hinnasto">Hinnasto</a>
+  <a href="#toimipisteet">Toimipisteet</a>
+  <a class="btn btn-primary" href="#varaa">Varaa aika</a>
+</nav>
+
+<main id="alku">
+
+  <!-- ══════════ HERO ══════════ -->
+  <div class="hero">
+    <div>
+      <p class="eyebrow">Parturi-kampaamo · Ilmajoki &amp; Seinäjoki</p>
+      <h1>Harvinaisen hyvä <em>hiuspäivä.</em></h1>
+      <p class="lead">
+        Bluerose Team palvelee koko perhettä kahdessa liikkeessä — leikkaukset,
+        värjäykset, permanentit ja juhlakampaukset tutulla, ammattitaitoisella otteella.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#varaa">Varaa aika</a>
+        <a class="btn btn-ghost" href="#hinnasto">Katso hinnasto</a>
+      </div>
+      <p class="hero-note">
+        <strong>Ilmajoki</strong> · Kauppatie 7 &nbsp;·&nbsp;
+        <strong>Seinäjoki</strong> · Vakkurinkatu
+      </p>
+    </div>
+
+    <div class="rose-wrap" aria-hidden="true">
+      <svg viewBox="0 0 320 420" role="img" aria-label="Bluerose — sininen ruusu">
+        <path class="rose-path" style="stroke:#4A6FA5;stroke-width:3;animation-delay:.1s"
+          d="M160 118 c10 -2 16 6 13 14 c-4 11 -19 12 -27 4 c-10 -10 -5 -27 8 -33
+             c18 -8 38 3 43 21 c6 22 -10 43 -32 47 c-27 5 -52 -14 -55 -41
+             c-3 -31 22 -57 53 -58 c36 -1 64 28 63 63"/>
+        <path class="rose-path" style="stroke:#C98A9D;stroke-width:2.6;animation-delay:.55s"
+          d="M96 120 c-14 22 -12 52 6 71 c20 22 54 26 79 11 c22 -13 33 -39 28 -64"/>
+        <path class="rose-path" style="stroke:#4A6FA5;stroke-width:2.6;animation-delay:.8s"
+          d="M120 64 c-26 10 -44 36 -45 64 m170 -36 c8 26 0 56 -21 73"/>
+        <path class="rose-path" style="stroke:#C98A9D;stroke-width:2.4;animation-delay:1.05s"
+          d="M140 210 c14 8 32 8 46 -1"/>
+        <path class="rose-path" style="stroke:#1C2A44;stroke-width:3;animation-delay:1.2s"
+          d="M162 214 c4 50 2 100 -6 150 c-3 18 -6 30 -10 44"/>
+        <path class="rose-path" style="stroke:#4A6FA5;stroke-width:2.6;animation-delay:1.5s"
+          d="M159 286 c-22 -22 -50 -28 -74 -18 c8 26 34 42 62 38 c5 -1 9 -3 12 -6 z"/>
+        <path class="rose-path" style="stroke:#4A6FA5;stroke-width:2.6;animation-delay:1.7s"
+          d="M158 330 c20 -24 48 -33 73 -25 c-6 27 -31 45 -59 43 c-5 0 -9 -2 -13 -5 z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══════════ MIKSI MEILLE ══════════ -->
+  <section class="why">
+    <div class="inner">
+      <p class="eyebrow reveal">Miksi Bluerose?</p>
+      <h2 class="reveal">Palvelu, johon voi luottaa</h2>
+      <p class="section-intro reveal">Olemme ylpeitä siitä, että asiakkaamme palaavat luoksemme uudelleen ja uudelleen.</p>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          </div>
+          <h3>Vuosien kokemus</h3>
+          <p>Ammattitaitoiset kampaajamme ja parturimme tekevät työtä sydämellä — joka leikkauksessa ja värjäyksessä.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3>Helppo ajanvaraus</h3>
+          <p>Varaa aika verkossa tai soittamalla — joustavat ajat myös lauantaisin sopimuksen mukaan.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Koko perheelle</h3>
+          <p>Lapset, aikuiset, seniorit — kaikille löytyy sopiva palvelu ja ystävällinen, rauhallinen palvelu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PALVELUT ══════════ -->
+  <section class="services" id="palvelut">
+    <div class="inner">
+      <p class="eyebrow reveal">Palvelut</p>
+      <h2 class="reveal">Kaikki hiuspalvelut saman katon alta</h2>
+      <p class="section-intro reveal">
+        Liikkeistämme löydät palvelujen lisäksi tutut ja uusimmat tuotteet kauneudenhoitoon.
+      </p>
+      <div class="service-grid">
+
+        <div class="service-card reveal">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div>
+            <h3>Hiustenleikkaukset</h3>
+            <p>Naisten, miesten ja lasten leikkaukset — klassikoista uusimpiin trendeihin. Ammattitaito näkyy joka saksi-liikkeessä.</p>
+          </div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m11.4-.7l-.7.7M5.6 18.4l.7-.7m11.4.7l-.7-.7"/></svg>
+          </div>
+          <div>
+            <h3>Värjäykset ja raidoitukset</h3>
+            <p>Kokovärit, raidat ja vaalennukset hiuksiasi kunnioittaen. Käytämme laadukkaita, hiuksia suojelevia värejä.</p>
+          </div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <div>
+            <h3>Permanentit</h3>
+            <p>Kestävää muotoa ja tuuheutta juuri sinun hiuslaadullesi. Klassisia ja moderneja permanenttitekniikoita.</p>
+          </div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div>
+            <h3>Kampaukset ja juhlatyylit</h3>
+            <p>Häihin, valmistujaisiin ja juhlaan — viimeistelty tyyli tärkeään päivään. Varaa ajoissa!</p>
+          </div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+          </div>
+          <div>
+            <h3>Parturipalvelut</h3>
+            <p>Leikkaukset ja parranajot perinteisellä parturiotteella. Huolellisuus ja tarkkuus jokaisessa käynnissä.</p>
+          </div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div>
+            <h3>Tuotemyynti</h3>
+            <p>Ammattilaistuotteet kotihoitoon — autamme valitsemaan sinulle sopivimmat tuotteet hiustyypillesi.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ HINNASTO ══════════ -->
+  <section class="pricing" id="hinnasto">
+    <div class="inner">
+      <p class="eyebrow reveal">Hinnasto</p>
+      <h2 class="reveal">Selkeät hinnat, ei yllätyksiä</h2>
+      <p class="section-intro reveal">Hinnat alkaen — lopullinen hinta määräytyy hiusten pituuden ja työn mukaan.</p>
+      <div class="price-cols">
+        <div class="price-group reveal">
+          <h3>Kampaamo</h3>
+          <div class="price-row"><span class="name">Hiustenleikkaus</span><span class="leader"></span><span class="price">alk. 45 €</span></div>
+          <div class="price-row"><span class="name">Leikkaus + värjäys</span><span class="leader"></span><span class="price">alk. 105 €</span></div>
+          <div class="price-row"><span class="name">Raidoitus</span><span class="leader"></span><span class="price">alk. 95 €</span></div>
+          <div class="price-row"><span class="name">Permanentti</span><span class="leader"></span><span class="price">alk. 95 €</span></div>
+          <div class="price-row"><span class="name">Juhlakampaus</span><span class="leader"></span><span class="price">alk. 60 €</span></div>
+          <div class="price-row"><span class="name">Hiushoito</span><span class="leader"></span><span class="price">alk. 30 €</span></div>
+        </div>
+        <div class="price-group reveal">
+          <h3>Parturi &amp; muut</h3>
+          <div class="price-row"><span class="name">Miesten leikkaus</span><span class="leader"></span><span class="price">alk. 32 €</span></div>
+          <div class="price-row"><span class="name">Lasten leikkaus</span><span class="leader"></span><span class="price">alk. 25 €</span></div>
+          <div class="price-row"><span class="name">Parranajo</span><span class="leader"></span><span class="price">alk. 25 €</span></div>
+          <div class="price-row"><span class="name">Leikkaus + parranajo</span><span class="leader"></span><span class="price">alk. 50 €</span></div>
+          <div class="price-row"><span class="name">Ripsien ja kulmien värjäys</span><span class="leader"></span><span class="price">alk. 35 €</span></div>
+        </div>
+      </div>
+      <p class="price-disclaimer reveal">
+        Luonnoksen hinnat ovat esimerkkejä — ne päivitetään liikkeen omalla hinnastolla ennen julkaisua.
+        Lopullinen hinta sovitaan aina ennen palvelun aloittamista.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════ ASIAKKAIDEN SANOJA ══════════ -->
+  <section class="testimonials" aria-label="Asiakasarviot">
+    <div class="inner">
+      <p class="eyebrow reveal" style="color:#8da4c8">Asiakasarviot</p>
+      <h2 class="reveal">Mitä asiakkaamme sanovat</h2>
+      <p class="section-intro reveal" style="color:#c0cce0">
+        Placeholder-arviot — nämä korvataan oikeilla ennen julkaisua.
+      </p>
+      <div class="quote-grid">
+        <div class="quote-card reveal">
+          <div class="quote-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <blockquote>„Olen käynyt Bluerosessa vuosia — aina lähden tyytyväisenä. Taitavia, mukavia ja kuuntelevat toiveet tarkkaan."</blockquote>
+          <cite>— Asiakasarvio (placeholder)</cite>
+        </div>
+        <div class="quote-card reveal">
+          <div class="quote-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <blockquote>„Parturi-Ilmajoen paras! Väri kestää hyvin ja leikkaus onnistuu aina juuri niin kuin toivon."</blockquote>
+          <cite>— Asiakasarvio (placeholder)</cite>
+        </div>
+        <div class="quote-card reveal">
+          <div class="quote-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <blockquote>„Koko perheeni käy täällä. Lapsetkin viihtyvät, ilmapiiri on lämmin ja henkilökunta on aina iloinen."</blockquote>
+          <cite>— Asiakasarvio (placeholder)</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ TOIMIPISTEET ══════════ -->
+  <section class="locations" id="toimipisteet">
+    <div class="inner">
+      <p class="eyebrow reveal">Toimipisteet</p>
+      <h2 class="reveal">Kaksi liikettä, sama tuttu palvelu</h2>
+      <p class="section-intro reveal">Tervetuloa kumpaan tahansa — valitse sinulle sopivampi toimipiste.</p>
+      <div class="loc-grid">
+
+        <div class="loc-card reveal">
+          <span class="loc-badge">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Ilmajoki
+          </span>
+          <p class="city">Ilmajoki</p>
+          <p class="sub">Entinen Osuuspankin talo</p>
+          <address>Kauppatie 7<br>60800 Ilmajoki</address>
+          <p class="hours"><strong>Ma–pe</strong> 9–17 &nbsp;·&nbsp; <strong>La</strong> sopimuksen mukaan</p>
+          <div class="loc-card-actions">
+            <a class="tel" href="tel:+35864247225">06 424 7225</a>
+            <a class="map-link" href="https://maps.google.com/?q=Kauppatie+7,+60800+Ilmajoki" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Näytä kartalla
+            </a>
+          </div>
+        </div>
+
+        <div class="loc-card reveal">
+          <span class="loc-badge">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Seinäjoki
+          </span>
+          <p class="city">Seinäjoki</p>
+          <p class="sub">Keskustan liike</p>
+          <address>Vakkurinkatu<br>60100 Seinäjoki</address>
+          <p class="hours"><strong>Ma–pe</strong> 9–17 &nbsp;·&nbsp; <strong>La</strong> sopimuksen mukaan</p>
+          <div class="loc-card-actions">
+            <a class="tel" href="#toimipisteet">puh. päivitetään</a>
+            <a class="map-link" href="https://maps.google.com/?q=Vakkurinkatu,+60100+Seinäjoki" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Näytä kartalla
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ VARAA AIKA ══════════ -->
+  <section class="cta-band" id="varaa">
+    <div class="inner">
+      <h2 class="reveal">Tuttu tuoli odottaa</h2>
+      <p class="reveal">Varaa aikasi soittamalla tai nettiajanvarauksella — varauslinkki (esim. Timma) liitetään tähän ennen julkaisua.</p>
+      <div class="hero-ctas reveal">
+        <a class="btn btn-rose" href="#">Varaa aika netissä</a>
+        <a class="btn btn-ghost" href="tel:+35864247225">Soita Ilmajoki</a>
+        <a class="btn btn-ghost" href="#toimipisteet">Soita Seinäjoki</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-logo">Blue&nbsp;Rose <span>Team Oy</span></p>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Ilmajoki</h4>
+        <address>
+          Kauppatie 7<br>
+          60800 Ilmajoki<br>
+          <a href="tel:+35864247225">06 424 7225</a>
+        </address>
+      </div>
+      <div class="footer-col">
+        <h4>Seinäjoki</h4>
+        <address>
+          Vakkurinkatu<br>
+          60100 Seinäjoki<br>
+          <a href="#toimipisteet">puh. päivitetään</a>
+        </address>
+      </div>
+      <div class="footer-col">
+        <h4>Aukioloajat</h4>
+        <p>Ma–pe 9–17<br>La sopimuksen mukaan<br>Su suljettu</p>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <p class="footer-bottom">
+      © Bluerose Team Oy · Sivuluonnos: <a href="https://jesperkarna.fi">Jesper Kärnä · jesperkarna.fi</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+  /* Scroll-animaatiot */
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }),
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 4) * 0.07 + 's';
+    observer.observe(el);
+  });
+
+  /* Scrolled nav shadow */
+  const header = document.querySelector('header.site');
+  window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 20), { passive: true });
+
+  /* Active nav links */
+  const sections = document.querySelectorAll('section[id], div[id="alku"]');
+  const navLinks = document.querySelectorAll('.nav-links a:not(.btn)');
+  const linkMap = { palvelut: 0, hinnasto: 1, toimipisteet: 2 };
+  const sectionObserver = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const id = e.target.id;
+        if (linkMap[id] !== undefined) navLinks[linkMap[id]]?.classList.add('active');
+      }
+    }),
+    { threshold: 0.4 }
+  );
+  sections.forEach(s => sectionObserver.observe(s));
+
+  /* Hamburger menu */
+  const hamburger = document.querySelector('.hamburger');
+  const drawer = document.getElementById('mobiilimenu');
+  hamburger.addEventListener('click', () => {
+    const open = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', String(!open));
+    drawer.classList.toggle('open', !open);
+    document.body.style.overflow = open ? '' : 'hidden';
+  });
+  drawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.setAttribute('aria-expanded', 'false');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+  /* Close on Escape */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) {
+      hamburger.setAttribute('aria-expanded', 'false');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+      hamburger.focus();
+    }
+  });
+</script>
+
+</body>
+</html>
