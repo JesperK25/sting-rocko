@@ -76,10 +76,20 @@
 
     /* Logo */
     .logo-wrap { position: relative; z-index: 2; margin-bottom: 1rem; }
-    .logo-canvas { display: block; width: min(600px, 95vw); height: min(340px, 54vw); }
-    .logo-video { position: absolute; left: -9999px; width: 1px; height: 1px; }
+    .logo-video {
+      width: min(600px, 95vw);
+      height: min(340px, 54vw);
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: screen;
+    }
     @media (max-width: 768px) {
-      .logo-canvas { width: min(320px, 90vw); height: min(180px, 51vw); }
+      .logo-video { width: min(320px, 90vw); height: min(180px, 51vw); }
+      /* iOS ei tue mix-blend-mode videolla — pehmennetään reunat maskilla */
+      .logo-wrap {
+        -webkit-mask-image: radial-gradient(ellipse 78% 82% at 50% 50%, black 32%, rgba(0,0,0,0.5) 55%, transparent 74%);
+        mask-image: radial-gradient(ellipse 78% 82% at 50% 50%, black 32%, rgba(0,0,0,0.5) 55%, transparent 74%);
+      }
     }
 
     /* Hero video */
@@ -557,59 +567,6 @@
     })
   })
 
-  // Logo luma-key: poistaa vain lähes puhtaan mustat pikselit (tausta),
-  // säilyttää logon tummat metalliset osat (luma > 6)
-  ;(function() {
-    const video = document.querySelector('.logo-video')
-    if (!video) return
-    const wrap = video.parentElement
-    const canvas = document.createElement('canvas')
-    canvas.className = 'logo-canvas'
-    wrap.insertBefore(canvas, video)
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-    // Rajoita resoluutio suorituskyvyn vuoksi
-    const maxW = isMobile ? 400 : 900
-    const ctx = canvas.getContext('2d', { willReadFrequently: true })
-    let running = false
-
-    function draw() {
-      if (!running) return
-      if (video.readyState >= 2) {
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-        try {
-          const img = ctx.getImageData(0, 0, canvas.width, canvas.height)
-          const d = img.data
-          for (let i = 0; i < d.length; i += 4) {
-            const luma = d[i] * 0.299 + d[i+1] * 0.587 + d[i+2] * 0.114
-            if (luma < 12) d[i+3] = 0
-            else if (luma < 28) d[i+3] = Math.round((luma - 12) / 16 * 255)
-          }
-          ctx.putImageData(img, 0, 0)
-        } catch(e) {
-          // getImageData estetty — fallback: näytä video mix-blend-modella
-          running = false
-          canvas.style.display = 'none'
-          video.style.cssText = 'display:block;width:min(600px,95vw);height:min(340px,54vw);object-fit:contain;'
-          wrap.style.mixBlendMode = 'screen'
-          wrap.style.background = '#000'
-        }
-      }
-      requestAnimationFrame(draw)
-    }
-
-    function start() {
-      if (running) return
-      const ratio = video.videoHeight / (video.videoWidth || 1)
-      canvas.width = Math.min(video.videoWidth || maxW, maxW)
-      canvas.height = Math.round(canvas.width * ratio) || Math.round(maxW * 0.56)
-      running = true
-      draw()
-    }
-
-    video.addEventListener('loadedmetadata', start)
-    video.addEventListener('play', start)
-    if (video.readyState >= 1) start()
-  })()
 
   // Initial reveals
   document.querySelectorAll('#page-home .reveal').forEach(el => {
