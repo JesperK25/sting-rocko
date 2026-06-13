@@ -598,8 +598,13 @@
     }
     function start() {
       if (running) return
-      canvas.width = video.videoWidth || 320
-      canvas.height = video.videoHeight || 180
+      const dpr = window.devicePixelRatio || 1
+      const cssW = Math.min(320, window.innerWidth * 0.9)
+      const cssH = Math.min(180, window.innerWidth * 0.51)
+      canvas.width = video.videoWidth || Math.round(cssW * dpr)
+      canvas.height = video.videoHeight || Math.round(cssH * dpr)
+      ctx.imageSmoothingEnabled = true
+      ctx.imageSmoothingQuality = 'high'
       running = true
       draw()
     }
