@@ -81,11 +81,11 @@
       height: min(340px, 54vw);
       object-fit: contain;
       display: block;
-      mix-blend-mode: screen;
+      mix-blend-mode: screen; /* toimii desktopilla */
     }
     @media (max-width: 768px) {
       .logo-video { width: min(320px, 90vw); height: min(180px, 51vw); }
-      /* iOS ei tue mix-blend-mode videolla — pehmennetään reunat maskilla */
+      /* Kun alpha-video (sting-logo-alpha.webm) lisätään, mix-blend-mode ei tarvita */
       .logo-wrap {
         -webkit-mask-image: radial-gradient(ellipse 78% 82% at 50% 50%, black 32%, rgba(0,0,0,0.5) 55%, transparent 74%);
         mask-image: radial-gradient(ellipse 78% 82% at 50% 50%, black 32%, rgba(0,0,0,0.5) 55%, transparent 74%);
@@ -366,6 +366,9 @@
   <div class="home-hero">
     <div class="logo-wrap">
       <video class="logo-video" autoplay loop muted playsinline webkit-playsinline preload="auto">
+        <!-- Alpha-versio (läpinäkyvä tausta) — toimii kaikilla laitteilla -->
+        <source src="sting-logo-alpha.webm" type="video/webm; codecs=vp9">
+        <!-- Fallback ilman alphaa -->
         <source src="sting-logo.webm" type="video/webm">
         <source src="sting-logo.mov" type="video/mp4">
       </video>
