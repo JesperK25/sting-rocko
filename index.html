@@ -580,13 +580,19 @@
           const img = ctx.getImageData(0, 0, canvas.width, canvas.height)
           const d = img.data
           for (let i = 0; i < d.length; i += 4) {
-            // Vain lähes puhdas musta poistetaan — logon tummat osat säilyvät
             const luma = d[i] * 0.299 + d[i+1] * 0.587 + d[i+2] * 0.114
-            if (luma < 6) d[i+3] = 0
-            else if (luma < 18) d[i+3] = Math.round((luma - 6) / 12 * 255)
+            if (luma < 12) d[i+3] = 0
+            else if (luma < 28) d[i+3] = Math.round((luma - 12) / 16 * 255)
           }
           ctx.putImageData(img, 0, 0)
-        } catch(e) {}
+        } catch(e) {
+          // getImageData estetty — fallback: näytä video mix-blend-modella
+          running = false
+          canvas.style.display = 'none'
+          video.style.cssText = 'display:block;width:min(600px,95vw);height:min(340px,54vw);object-fit:contain;'
+          wrap.style.mixBlendMode = 'screen'
+          wrap.style.background = '#000'
+        }
       }
       requestAnimationFrame(draw)
     }
